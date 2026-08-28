@@ -114,7 +114,7 @@
             font-weight: bold;
         }
 
-        /* AD CONTAINER */
+        /* حاوي الإعلان المعزول */
         .ad-container {
             display: flex;
             justify-content: center;
@@ -122,288 +122,12 @@
             margin-top: 25px;
             width: 100%;
         }
-    </style>
-</head>
-<body>
 
-    <div class="header">
-        <h1>الاختبار الذهبي</h1>
-        <div class="stats">
-            <div>المرحلة: <span id="level-num">1</span> / 12</div>
-            <div>السرعة: <span id="speed-label">عادية</span></div>
-        </div>
-    </div>
-
-    <div id="grid" class="grid-container"></div>
-
-    <div class="message" id="status-msg">اضغط "بدء اللعبة" للبدء</div>
-
-    <div class="controls">
-        <button id="start-btn" onclick="startGame()">بدء اللعبة</button>
-    </div>
-
-    <!-- Ad Section -->
-    <div class="ad-container">
-        <script type="text/javascript">
-            atOptions = {
-                'key' : '7b6a8dee2f1ae055b1a067bd530ba2a8',
-                'format' : 'iframe',
-                'height' : 50,
-                'width' : 320,
-                'params' : {}
-            };
-        </script>
-        <script type="text/javascript" src="https://www.highrevenueformat.com/7b6a8dee2f1ae055b1a067bd530ba2a8/invoke.js"></script>
-    </div>
-
-    <script>
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-        const levels = [
-            { grid: [3, 3], speed: 600, speedLabel: "بطيئة" },
-            { grid: [3, 3], speed: 400, speedLabel: "متوسطة" },
-            { grid: [3, 3], speed: 250, speedLabel: "سريعة" },
-            { grid: [3, 4], speed: 600, speedLabel: "بطيئة" },
-            { grid: [3, 4], speed: 400, speedLabel: "متوسطة" },
-            { grid: [3, 4], speed: 250, speedLabel: "سريعة" },
-            { grid: [4, 4], speed: 600, speedLabel: "بطيئة" },
-            { grid: [4, 4], speed: 400, speedLabel: "متوسطة" },
-            { grid: [4, 4], speed: 250, speedLabel: "سريعة" },
-            { grid: [4, 5], speed: 600, speedLabel: "بطيئة" },
-            { grid: [4, 5], speed: 400, speedLabel: "متوسطة" },
-            { grid: [4, 5], speed: 250, speedLabel: "سريعة" }
-        ];
-
-        let currentLevel = 0;
-        let sequence = [];
-        let playerSequence = [];
-        let isPlayingSequence = false;
-        let isGameRunning = false;
-
-        function playTone(freq, type = 'sine', duration = 0.2) {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = type;
-            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + duration);
-        }
-
-        // تم إلغاء الصوت الخلفي المستمر
-        function startAmbientSound() {}
-        function stopAmbientSound() {}
-
-        function playWinSound() {
-            const notes = [261.63, 329.63, 392.00, 523.25];
-            notes.forEach((freq, index) => {
-                setTimeout(() => playTone(freq, 'triangle', 0.3), index * 100);
-            });
-        }
-
-        function playFailSound() {
-            playTone(100, 'sawtooth', 0.6);
-        }
-
-        function buildGrid(rows, cols) {
-            const gridEl = document.getElementById('grid');
-            gridEl.innerHTML = '';
-            gridEl.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-
-            const totalCells = rows * cols;
-            for (let i = 0; i < totalCells; i++) {
-                const cell = document.createElement('div');
-                cell.classList.add('cell');
-                cell.dataset.index = i;
-                cell.addEventListener('click', () => handleCellClick(i));
-                gridEl.appendChild(cell);
-            }
-        }
-
-        function startGame() {
-            currentLevel = 0;
-            isGameRunning = true;
-            document.getElementById('start-btn').disabled = true;
-            nextLevel();
-        }
-
-        function nextLevel() {
-            if (currentLevel >= levels.length) {
-                document.getElementById('status-msg').innerText = "تهانينا! أكملت جميع المراحل بنجاح!";
-                playWinSound();
-                document.getElementById('start-btn').disabled = false;
-                isGameRunning = false;
-                return;
-            }
-
-            const config = levels[currentLevel];
-            document.getElementById('level-num').innerText = currentLevel + 1;
-            document.getElementById('speed-label').innerText = config.speedLabel;
-            document.getElementById('status-msg').innerText = "تذكر التسلسل...";
-
-            buildGrid(config.grid[0], config.grid[1]);
-
-            const totalCells = config.grid[0] * config.grid[1];
-            const sequenceLength = 3 + Math.floor(currentLevel / 2);
-            sequence = [];
-            for (let i = 0; i < sequenceLength; i++) {
-                sequence.push(Math.floor(Math.random() * totalCells));
-            }
-
-            playerSequence = [];
-            setTimeout(() => playSequence(), 1000);
-        }
-
-        function playSequence() {
-            isPlayingSequence = true;
-            const config = levels[currentLevel];
-            let i = 0;
-
-            const interval = setInterval(() => {
-                const cellIndex = sequence[i];
-                activateCell(cellIndex, config.speed * 0.7);
-                
-                i++;
-                if (i >= sequence.length) {
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        isPlayingSequence = false;
-                        document.getElementById('status-msg').innerText = "دورك الان!";
-                    }, config.speed);
-                }
-            }, config.speed);
-        }
-
-        function activateCell(index, duration = 200) {
-            const cells = document.querySelectorAll('.cell');
-            if (!cells[index]) return;
-
-            cells[index].classList.add('active');
-            playTone(200 + (index * 25), 'sine', duration / 1000);
-
-            setTimeout(() => {
-                cells[index].classList.remove('active');
-            }, duration);
-        }
-
-        function handleCellClick(index) {
-            if (!isGameRunning || isPlayingSequence) return;
-
-            activateCell(index, 200);
-            playerSequence.push(index);
-
-            const currentIndex = playerSequence.length - 1;
-
-            if (playerSequence[currentIndex] !== sequence[currentIndex]) {
-                document.getElementById('status-msg').innerText = "خسرت! إجابة خاطئة.";
-                playFailSound();
-                document.getElementById('start-btn').disabled = false;
-                isGameRunning = false;
-                return;
-            }
-
-            if (playerSequence.length === sequence.length) {
-                isPlayingSequence = true;
-                document.getElementById('status-msg').innerText = "مرحلة مكتملة!";
-                playWinSound();
-                currentLevel++;
-                setTimeout(nextLevel, 1500);
-            }
-        }
-    </script>
-</body>
-</html>
-            margin: 0 0 10px 0;
-            font-size: 2.2rem;
-            letter-spacing: 2px;
-        }
-
-        .stats {
-            display: flex;
-            gap: 20px;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        .grid-container {
-            display: grid;
-            gap: 12px;
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 15px;
-            border: 2px solid var(--gold-primary);
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.15), inset 0 0 15px rgba(0,0,0,0.8);
-            max-width: 90vw;
-        }
-
-        .cell {
-            background: #241f10;
-            border: 2px solid #554518;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.1s, background-color 0.2s, box-shadow 0.2s;
-            aspect-ratio: 1;
-            width: 70px;
-        }
-
-        .cell:hover {
-            border-color: var(--gold-primary);
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-        }
-
-        .cell.active {
-            background-color: var(--gold-primary) !important;
-            box-shadow: 0 0 30px var(--gold-glow), 0 0 50px var(--gold-primary) !important;
-            transform: scale(0.95);
-        }
-
-        .controls {
-            margin-top: 25px;
-        }
-
-        button {
-            background: linear-gradient(145deg, #ffd700, #b8860b);
-            color: #000;
+        .ad-container iframe {
+            width: 320px;
+            height: 50px;
             border: none;
-            padding: 12px 35px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 25px;
-            cursor: pointer;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-            transition: all 0.3s;
-        }
-
-        button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
-        }
-
-        button:disabled {
-            background: #444;
-            color: #888;
-            box-shadow: none;
-            cursor: not-allowed;
-        }
-
-        .message {
-            margin-top: 15px;
-            height: 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
-        }
-
-        /* AD CONTAINER */
-        .ad-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 25px;
-            width: 100%;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -426,39 +150,39 @@
     </div>
 
     <div class="ad-container">
-        <script type="text/javascript">
-            atOptions = {
-                'key' : '7b6a8dee2f1ae055b1a067bd530ba2a8',
-                'format' : 'iframe',
-                'height' : 50,
-                'width' : 320,
-                'params' : {}
-            };
-        </script>
-        <script type="text/javascript" src="https://www.highrevenueformat.com/7b6a8dee2f1ae055b1a067bd530ba2a8/invoke.js"></script>
+        <iframe srcdoc="
+            <!DOCTYPE html>
+            <html>
+            <head><style>body{margin:0;padding:0;display:flex;justify-content:center;align-items:center;background:transparent;}</style></head>
+            <body>
+                <script type='text/javascript'>
+                    atOptions = {
+                        'key' : '7b6a8dee2f1ae055b1a067bd530ba2a8',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type='text/javascript' src='https://www.highrevenueformat.com/7b6a8dee2f1ae055b1a067bd530ba2a8/invoke.js'></script>
+            </body>
+            </html>
+        "></iframe>
     </div>
 
     <script>
-        // إعدادات المحاكاة الصوتية (Web Audio API)
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        let droneOscillator = null;
-        let droneGain = null;
 
-        // هيكلية 12 مرحلة
         const levels = [
-            // المجموعة 1 (9 خلايا - 3x3)
             { grid: [3, 3], speed: 600, speedLabel: "بطيئة" },
             { grid: [3, 3], speed: 400, speedLabel: "متوسطة" },
             { grid: [3, 3], speed: 250, speedLabel: "سريعة" },
-            // المجموعة 2 (12 خلية - 3x4)
             { grid: [3, 4], speed: 600, speedLabel: "بطيئة" },
             { grid: [3, 4], speed: 400, speedLabel: "متوسطة" },
             { grid: [3, 4], speed: 250, speedLabel: "سريعة" },
-            // المجموعة 3 (16 خلية - 4x4)
             { grid: [4, 4], speed: 600, speedLabel: "بطيئة" },
             { grid: [4, 4], speed: 400, speedLabel: "متوسطة" },
             { grid: [4, 4], speed: 250, speedLabel: "سريعة" },
-            // المجموعة 4 (20 خلية - 4x5)
             { grid: [4, 5], speed: 600, speedLabel: "بطيئة" },
             { grid: [4, 5], speed: 400, speedLabel: "متوسطة" },
             { grid: [4, 5], speed: 250, speedLabel: "سريعة" }
@@ -482,31 +206,6 @@
             gain.connect(audioCtx.destination);
             osc.start();
             osc.stop(audioCtx.currentTime + duration);
-        }
-
-        function startAmbientSound() {
-            if (droneOscillator) droneOscillator.stop();
-            
-            droneOscillator = audioCtx.createOscillator();
-            droneGain = audioCtx.createGain();
-
-            // يزداد الرعب بانخفاض التردد واختلاف نغمة المنشار على مر المراحل
-            const baseFreq = 60 - (currentLevel * 2.5); 
-            droneOscillator.type = 'sawtooth';
-            droneOscillator.frequency.setValueAtTime(baseFreq, audioCtx.currentTime);
-
-            droneGain.gain.setValueAtTime(0.05 + (currentLevel * 0.01), audioCtx.currentTime);
-
-            droneOscillator.connect(droneGain);
-            droneGain.connect(audioCtx.destination);
-            droneOscillator.start();
-        }
-
-        function stopAmbientSound() {
-            if (droneOscillator) {
-                droneOscillator.stop();
-                droneOscillator = null;
-            }
         }
 
         function playWinSound() {
@@ -545,7 +244,6 @@
         function nextLevel() {
             if (currentLevel >= levels.length) {
                 document.getElementById('status-msg').innerText = "تهانينا! أكملت جميع المراحل بنجاح!";
-                stopAmbientSound();
                 playWinSound();
                 document.getElementById('start-btn').disabled = false;
                 isGameRunning = false;
@@ -558,9 +256,7 @@
             document.getElementById('status-msg').innerText = "تذكر التسلسل...";
 
             buildGrid(config.grid[0], config.grid[1]);
-            startAmbientSound();
 
-            // توليد تسلسل العرض (العد يزداد مع المرحلة)
             const totalCells = config.grid[0] * config.grid[1];
             const sequenceLength = 3 + Math.floor(currentLevel / 2);
             sequence = [];
@@ -597,7 +293,6 @@
             if (!cells[index]) return;
 
             cells[index].classList.add('active');
-            // نغمة متغيرة بناءً على موقع الخلية
             playTone(200 + (index * 25), 'sine', duration / 1000);
 
             setTimeout(() => {
@@ -614,9 +309,7 @@
             const currentIndex = playerSequence.length - 1;
 
             if (playerSequence[currentIndex] !== sequence[currentIndex]) {
-                // خطأ في الإدخال
                 document.getElementById('status-msg').innerText = "خسرت! إجابة خاطئة.";
-                stopAmbientSound();
                 playFailSound();
                 document.getElementById('start-btn').disabled = false;
                 isGameRunning = false;
@@ -624,7 +317,6 @@
             }
 
             if (playerSequence.length === sequence.length) {
-                // نجاح المرحلة
                 isPlayingSequence = true;
                 document.getElementById('status-msg').innerText = "مرحلة مكتملة!";
                 playWinSound();
@@ -635,98 +327,3 @@
     </script>
 </body>
 </html>
-            margin: 0 0 10px 0;
-            font-size: 2.2rem;
-            letter-spacing: 2px;
-        }
-
-        .stats {
-            display: flex;
-            gap: 20px;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        .grid-container {
-            display: grid;
-            gap: 12px;
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 15px;
-            border: 2px solid var(--gold-primary);
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.15), inset 0 0 15px rgba(0,0,0,0.8);
-            max-width: 90vw;
-        }
-
-        .cell {
-            background: #241f10;
-            border: 2px solid #554518;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.1s, background-color 0.2s, box-shadow 0.2s;
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لعبة الذاكرة المظلمة</title>
-    <style>
-        :root {
-            --gold-primary: #ffd700;
-            --gold-glow: #ffae00;
-            --bg-color: #080703;
-            --card-bg: #14120b;
-        }
-
-        body {
-            margin: 0;
-            padding: 20px;
-            background-color: var(--bg-color);
-            color: var(--gold-primary);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            box-sizing: border-box;
-            user-select: none;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-
-        h1 {
-            margin: 0 0 10px 0;
-            font-size: 2.2rem;
-            letter-spacing: 2px;
-        }
-
-        .stats {
-            display: flex;
-            gap: 20px;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        .grid-container {
-            display: grid;
-            gap: 12px;
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 15px;
-            border: 2px solid var(--gold-primary);
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.15), inset 0 0 15px rgba(0,0,0,0.8);
-            max-width: 90vw;
-        }
-
-        .cell {
-            background: #241f10;
-            border: 2px solid #554518;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.1s, background-color 0.2s, box-shadow 0.2s;
-
