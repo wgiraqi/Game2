@@ -2,204 +2,331 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0b1020">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080b16">
+<meta name="description" content="الفية(1) — اختبار تفاعلي في إعراب أسماء الاستفهام وخصائص أدوات الاستفهام.">
+<script async src="https://js.mbidadm.com/static/scripts.js" data-admpid="461917"></script>
 <title>الفية(1) — اختبار تفاعلي</title>
 <style>
-:root{--bg:#080b16;--panel:#11172a;--panel2:#171e35;--text:#f5f7ff;--muted:#aab3ca;--accent:#7c5cff;--accent2:#21d4fd;--ok:#25c98a;--bad:#ff5c7a;--border:rgba(255,255,255,.09)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;font-family:"Noto Sans Arabic","Segoe UI",Tahoma,Arial,sans-serif;background:radial-gradient(circle at 10% 0%,#18234b 0,transparent 34%),radial-gradient(circle at 90% 10%,#25204a 0,transparent 30%),var(--bg);color:var(--text)}
-button{font:inherit}.wrap{width:min(980px,calc(100% - 28px));margin:auto}.hero{padding:34px 0 18px;text-align:center}.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.05);color:#cfd5e8;font-size:13px}.hero h1{font-size:clamp(30px,6vw,52px);margin:16px 0 8px;letter-spacing:-1px}.hero p{margin:0;color:var(--muted);font-size:16px}.ad{min-height:70px;margin:16px 0 22px;padding:10px;border:1px dashed rgba(255,255,255,.14);border-radius:18px;background:rgba(255,255,255,.025);display:flex;justify-content:center;align-items:center;overflow:hidden}
-.card{background:linear-gradient(145deg,rgba(22,29,53,.96),rgba(13,18,34,.96));border:1px solid var(--border);border-radius:26px;box-shadow:0 20px 70px rgba(0,0,0,.3);overflow:hidden}.topbar{padding:18px 20px;border-bottom:1px solid var(--border)}.meta{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:14px}.progress{height:8px;background:#252c43;border-radius:99px;overflow:hidden;margin-top:12px}.progress>span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;transition:width .35s ease}.content{padding:24px}.question{font-size:clamp(21px,4vw,29px);line-height:1.8;margin:0 0 22px}.options{display:grid;gap:12px}.option{width:100%;text-align:right;padding:16px 17px;border:1px solid var(--border);border-radius:17px;background:rgba(255,255,255,.035);color:var(--text);cursor:pointer;transition:.18s;display:flex;align-items:flex-start;gap:12px}.option:hover{transform:translateY(-1px);border-color:rgba(124,92,255,.65);background:rgba(124,92,255,.09)}.option.selected{border-color:var(--accent);background:rgba(124,92,255,.14);box-shadow:0 0 0 2px rgba(124,92,255,.12)}.letter{width:32px;height:32px;min-width:32px;border-radius:10px;display:grid;place-items:center;background:#252c43;color:#dce1f2;font-weight:700}.selected .letter{background:var(--accent);color:#fff}.actions{display:flex;justify-content:space-between;gap:12px;margin-top:22px}.btn{border:0;border-radius:14px;padding:13px 19px;cursor:pointer;font-weight:700}.primary{background:linear-gradient(135deg,var(--accent),#5a8cff);color:#fff}.secondary{background:#232a40;color:#dfe4f4}.btn:disabled{opacity:.45;cursor:not-allowed}.hidden{display:none!important}.result{text-align:center;padding:34px 24px}.score{font-size:62px;font-weight:900;margin:8px 0;background:linear-gradient(135deg,#fff,#9fdfff);-webkit-background-clip:text;background-clip:text;color:transparent}.message{font-size:20px;line-height:1.8;color:#e9ecf8;margin:8px auto 22px;max-width:680px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}.stat{padding:16px;border:1px solid var(--border);border-radius:16px;background:rgba(255,255,255,.035)}.stat b{display:block;font-size:24px}.stat span{color:var(--muted);font-size:13px}.review{margin-top:24px;text-align:right}.review details{border:1px solid var(--border);border-radius:15px;margin:9px 0;background:rgba(255,255,255,.025);padding:12px 15px}.review summary{cursor:pointer;font-weight:700}.wrong{color:#ff9db0}.right{color:#76e7bb}.footer{text-align:center;color:#77819a;font-size:12px;padding:25px 0 40px}
-@media(max-width:620px){.content{padding:18px}.stats{grid-template-columns:1fr}.actions{position:sticky;bottom:10px;background:rgba(8,11,22,.9);padding:8px;border-radius:15px}.btn{flex:1}.hero{padding-top:24px}}
+:root{--bg:#070a14;--surface:#10162a;--surface2:#151d35;--text:#f7f8ff;--muted:#9faac4;--line:rgba(255,255,255,.09);--accent:#7657ff;--accent2:#22d3ee;--good:#28d39a;--bad:#ff607e;--shadow:0 25px 80px rgba(0,0,0,.35)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;color:var(--text);font-family:"Noto Sans Arabic","Segoe UI",Tahoma,Arial,sans-serif;background:radial-gradient(900px 500px at 10% -10%,rgba(118,87,255,.22),transparent 60%),radial-gradient(700px 500px at 95% 5%,rgba(34,211,238,.13),transparent 60%),var(--bg)}button{font:inherit}.shell{width:min(1050px,calc(100% - 28px));margin:auto}.hero{padding:34px 0 20px;text-align:center}.brand{display:inline-flex;align-items:center;gap:9px;padding:8px 13px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.045);color:#dbe0f2;font-size:13px}.dot{width:8px;height:8px;border-radius:50%;background:var(--accent2);box-shadow:0 0 15px var(--accent2)}h1{font-size:clamp(34px,7vw,58px);line-height:1.05;margin:17px 0 10px;letter-spacing:-1.5px}.hero p{color:var(--muted);margin:0;font-size:16px}.ad{min-height:78px;margin:8px 0 22px;border:1px dashed rgba(255,255,255,.13);border-radius:20px;background:rgba(255,255,255,.025);display:flex;justify-content:center;align-items:center;overflow:hidden}.quiz{border:1px solid var(--line);border-radius:28px;background:linear-gradient(145deg,rgba(18,25,46,.97),rgba(10,14,28,.97));box-shadow:var(--shadow);overflow:hidden}.head{padding:18px 22px;border-bottom:1px solid var(--line)}.meta{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:14px;gap:12px}.progress{height:8px;background:#252d45;border-radius:99px;margin-top:12px;overflow:hidden}.progress i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .35s ease}.body{padding:27px}.question-no{color:#9ca8c3;font-size:13px;margin-bottom:7px}.question{font-size:clamp(21px,3.4vw,29px);line-height:1.85;margin:0 0 22px;letter-spacing:-.2px}.options{display:grid;gap:12px}.option{display:flex;width:100%;align-items:flex-start;gap:12px;text-align:right;padding:16px;border:1px solid var(--line);border-radius:17px;background:rgba(255,255,255,.035);color:var(--text);cursor:pointer;transition:transform .16s,border-color .16s,background .16s;line-height:1.7}.option:hover{transform:translateY(-1px);border-color:rgba(118,87,255,.7);background:rgba(118,87,255,.08)}.option.selected{border-color:var(--accent);background:rgba(118,87,255,.14);box-shadow:0 0 0 2px rgba(118,87,255,.1)}.letter{width:34px;height:34px;min-width:34px;display:grid;place-items:center;border-radius:10px;background:#252d45;color:#dce3f5;font-weight:800}.selected .letter{background:var(--accent);color:white}.bottom{display:flex;justify-content:space-between;gap:12px;margin-top:24px}.btn{border:0;border-radius:15px;padding:13px 20px;font-weight:800;cursor:pointer;transition:.15s}.btn:hover:not(:disabled){transform:translateY(-1px)}.primary{color:#fff;background:linear-gradient(135deg,var(--accent),#4c8dff);box-shadow:0 10px 30px rgba(118,87,255,.22)}.secondary{color:#e3e7f3;background:#222a40}.btn:disabled{opacity:.4;cursor:not-allowed}.hidden{display:none!important}.result{padding:34px 26px;text-align:center}.result-icon{width:72px;height:72px;margin:auto;border-radius:22px;display:grid;place-items:center;font-size:32px;background:rgba(118,87,255,.13);border:1px solid rgba(118,87,255,.28)}.score{font-size:68px;font-weight:950;line-height:1;margin:18px 0 8px;background:linear-gradient(135deg,#fff,#9cecff);-webkit-background-clip:text;background-clip:text;color:transparent}.result h2{font-size:28px;margin:0 0 8px}.message{max-width:700px;margin:0 auto 24px;color:#d7dced;line-height:1.9;font-size:17px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;max-width:680px;margin:0 auto 22px}.stat{padding:16px;border:1px solid var(--line);border-radius:17px;background:rgba(255,255,255,.035)}.stat strong{display:block;font-size:25px}.stat span{font-size:12px;color:var(--muted)}.review{max-width:800px;margin:28px auto 0;text-align:right}.review h3{margin-bottom:12px}details{border:1px solid var(--line);border-radius:16px;margin:9px 0;background:rgba(255,255,255,.025);overflow:hidden}summary{padding:14px 16px;cursor:pointer;font-weight:800;list-style:none}summary::-webkit-details-marker{display:none}.review-content{padding:0 16px 16px;color:#cbd2e4;line-height:1.8}.review-content .answer{color:var(--good)}.review-content .wrong-answer{color:var(--bad)}.review-content .rule{padding:12px;border-right:3px solid var(--accent);background:rgba(118,87,255,.07);border-radius:10px;margin:10px 0}.review-content ul{margin-top:8px}.footer{text-align:center;color:#6f7992;font-size:12px;padding:24px 0 40px}.tip{margin:0 0 18px;padding:12px 14px;border-radius:14px;background:rgba(34,211,238,.055);border:1px solid rgba(34,211,238,.13);color:#b9dce3;font-size:13px}@media(max-width:650px){.shell{width:min(100% - 18px,1050px)}.hero{padding-top:25px}.body{padding:18px}.head{padding:16px 18px}.bottom{position:sticky;bottom:8px;padding:8px;border-radius:16px;background:rgba(7,10,20,.88);backdrop-filter:blur(12px);z-index:5}.btn{flex:1}.stats{grid-template-columns:1fr}.result{padding:28px 17px}}
 </style>
 </head>
 <body>
-<div class="wrap">
+<main class="shell">
 <header class="hero">
-  <span class="badge">اختبار تفاعلي • النحو والاستفهام</span>
+  <div class="brand"><span class="dot"></span> اختبار تفاعلي • النحو والاستفهام</div>
   <h1>الفية(1)</h1>
-  <p>اختبر فهمك لإعراب أسماء الاستفهام وخصائص أدوات الاستفهام.</p>
+  <p>اختبر إتقانك لإعراب أسماء الاستفهام وخصائص أدوات الاستفهام.</p>
 </header>
 
-<div class="ad" aria-label="مساحة إعلانية">
-  <script async src="https://js.mbidadm.com/static/scripts.js" data-admpid="461917"></script>
+<div class="ad" aria-label="إعلان">
+
+
+</div>
+
+<div class="ad" aria-label="إعلان">
   <div data-banner-id="2027698"></div>
 </div>
 
-<section class="card" id="quizCard">
-  <div class="topbar">
-    <div class="meta"><span id="counter">السؤال 1 من 18</span><span id="percent">0%</span></div>
-    <div class="progress"><span id="progress"></span></div>
+<section class="quiz" id="quiz">
+  <div class="head">
+    <div class="meta"><span id="counter">السؤال 1 من 18</span><span id="pct">0%</span></div>
+    <div class="progress"><i id="bar"></i></div>
   </div>
-  <div class="content">
+  <div class="body">
+    <div class="question-no" id="questionNo">السؤال الأول</div>
     <h2 class="question" id="question"></h2>
+    <p class="tip">اختر إجابة واحدة فقط، ثم اضغط «التالي» للانتقال للسؤال التالي.</p>
     <div class="options" id="options"></div>
-    <div class="actions">
+    <div class="bottom">
       <button class="btn secondary" id="prev" type="button">السابق</button>
       <button class="btn primary" id="next" type="button" disabled>التالي</button>
     </div>
   </div>
 </section>
 
-<section class="card result hidden" id="resultCard">
-  <div class="badge">اكتمل الاختبار ✓</div>
-  <div class="score" id="score">0%</div>
-  <h2 id="resultTitle">أحسنت!</h2>
-  <p class="message" id="message"></p>
-  <div class="stats">
-    <div class="stat"><b id="correct">0</b><span>إجابات صحيحة</span></div>
-    <div class="stat"><b id="wrong">0</b><span>إجابات خاطئة</span></div>
-    <div class="stat"><b id="total">18</b><span>إجمالي الأسئلة</span></div>
+<section class="quiz hidden" id="result">
+  <div class="result">
+    <div class="result-icon" id="resultIcon">🏆</div>
+    <div class="score" id="score">0%</div>
+    <h2 id="resultTitle">أحسنت!</h2>
+    <p class="message" id="message"></p>
+    <div class="stats">
+      <div class="stat"><strong id="correct">0</strong><span>إجابات صحيحة</span></div>
+      <div class="stat"><strong id="wrong">0</strong><span>إجابات خاطئة</span></div>
+      <div class="stat"><strong id="total">18</strong><span>إجمالي الأسئلة</span></div>
+    </div>
+    <button class="btn primary" id="restart" type="button">إعادة الاختبار</button>
+    <div class="review" id="review"></div>
   </div>
-  <button class="btn primary" id="restart" type="button">إعادة الاختبار</button>
-  <div class="review" id="review"></div>
 </section>
 
-<div class="ad" aria-label="مساحة إعلانية">
-  <div data-banner-id="2027698"></div>
+<div class="ad" aria-label="إعلان">
+  
 </div>
 
 <footer class="footer">الفية(1) — اختبار تفاعلي تعليمي</footer>
-</div>
+</main>
 
 <script>
+"use strict";
 const questions = [
-{q:`في قول الشاعر: «مَنْ أشتكي؟ وإلى مَنْ أعتزي؟ وندى مَنْ أجتدي؟»<br>ما الإعراب الصحيح لاسم الاستفهام (مَنْ) الأول (مَنْ أشتكي)؟`,o:[
-`اسم استفهام مبني في محل رفع مبتدأ؛ تلاه فعل متعدٍ.`,
-`اسم استفهام مبني في محل رفع خبر مقدم؛ تلاه فعل متعدٍ.`,
-`اسم استفهام مبني في محل نصب مفعول به مقدم وجوباً؛ تلاه فعل متعدٍ لم يستوفِ مفعوله.`,
-`اسم استفهام مبني في محل نصب حال؛ تلاه جملة فعلية تامة.`],a:2},
-{q:`في قول الشاعر: «مَنْ أشتكي؟ وإلى مَنْ أعتزي؟ وندى مَنْ أجتدي؟»<br>ما الموقع الإعرابي لاسم الاستفهام (مَنْ) الثاني (إلى مَنْ أعتزي)؟`,o:[
-`في محل جر بالإضافة؛ لأنها وقعت بعد حرف جر.`,
-`في محل نصب مفعول به للفعل (أعتزي)؛ لأنه متعدٍ.`,
-`في محل رفع مبتدأ؛ لأن الفعل بعدها استوفى معناه.`,
-`في محل جر بحرف الجر؛ لأنها سُبقت بحرف الجر (إلى).`],a:3},
-{q:`في قول الشاعر: «مَنْ أشتكي؟ وإلى مَنْ أعتزي؟ وندى مَنْ أجتدي؟»<br>ما الموقع الإعرابي لاسم الاستفهام (مَنْ) الثالث (وندى مَنْ أجتدي)؟`,o:[
-`في محل نصب مفعول به مقدم للفعل (أجتدي).`,
-`في محل جر بالإضافة؛ لأنها سُبقت باسم نكرة مضاف.`,
-`في محل جر بحرف الجر؛ لأن (ندى) تعمل عمل حروف الجر.`,
-`في محل رفع مبتدأ؛ لأنها سُبقت باسم معرفة.`],a:1},
-{q:`في قول الشاعر: «وكَيْفَ لِقَاءُ مَنْ تَحْتَ القُبُورِ»<br>ما إعراب اسم الاستفهام (كيف) معللاً؟`,o:[
-`في محل رفع مبتدأ؛ تلاها اسم معرفة.`,
-`في محل نصب حال؛ تلاها اسم نكرة.`,
-`في محل رفع خبر مقدم وجوباً؛ تلاها اسم معرفة.`,
-`في محل نصب مفعول مطلق؛ لأنها تدل على هيئة الحدث.`],a:2},
-{q:`في قول الشاعر: «في حَدَقَاتِ العينِ أم في الفُؤادِ تسكُنُ»<br>ثمة حرف محذوف، ما هو؟ وما تقديره؟ ولماذا حُذف؟`,o:[
-`هل الاستفهامية، والتقدير: (هل في حدقات)، وحذفت للتخفيف.`,
-`همزة الاستفهام، والتقدير: (أم في الفؤاد أتسكن)، وحذفت لوجود النفي.`,
-`همزة النداء، والتقدير: (أفي حدقات)، وحذفت للتعظيم.`,
-`همزة الاستفهام، والتقدير: (أفي حدقات)، وحذفت للتخفيف.`],a:3},
-{q:`في قول الشاعر: «مَنْ ذا يُغيّرُ على الأُسودِ بِغَابِها»<br>ما إعراب اسم الاستفهام (مَنْ ذا) معللاً؟`,o:[
-`مبتدأ؛ تلاه فعل متعدٍ استوفى مفعوله.`,
-`مبتدأ؛ تلاه فعل لازم.`,
-`مفعول به مقدم وجوباً؛ تلاه فعل متعدٍ لم يستوفِ مفعوله.`,
-`خبر مقدم؛ تلاه اسم معرفة.`],a:1},
-{q:`في عجز البيت: «أو مَنْ ذا يَعومُ بِمَسْبَحِ التِّمساحِ»<br>ما إعراب (مَنْ ذا) معللاً؟`,o:[
-`حال؛ لأن الجملة الفعلية تدل على هيئة الفاعل.`,
-`مفعول به؛ لأن الفعل يحتاج إلى مفعول به ليكتمل معناه.`,
-`مبتدأ؛ تلاه فعل لازم.`,
-`مبتدأ؛ تلاه فعل ناقص استوفى خبره.`],a:2},
-{q:`في قول الشاعر: «أبا الهولِ ماذا وراءَ البقاءِ»<br>ما الإعراب الصحيح لاسم الاستفهام (ماذا)؟`,o:[
-`مفعول فيه ظرف مكان؛ لأن (وراء) تدل على المكان.`,
-`مفعول به مقدم؛ تلاه شبه جملة ظرفية.`,
-`خبر مقدم؛ تلاه اسم معرفة مضاف.`,
-`مبتدأ؛ تلاه شبه جملة ظرفية.`],a:3},
-{q:`في قول الشاعر: «فَيا ليتَ شِعري أيَّ وقْتٍ تُحاوِلُ»<br>ما إعراب اسم الاستفهام (أيّ) معللاً؟`,o:[
-`مبتدأ؛ تلاه فعل تام.`,
-`مفعول به مقدم؛ تلاه فعل متعدٍ لم يستوفِ مفعوله.`,
-`مفعول فيه ظرف زمان منصوب؛ تلاه فعل تام.`,
-`مفعول مطلق منصوب؛ لأنها دالة على الحدث.`],a:2},
-{q:`في قول الشاعر: «متى صِرتَ يابحرُ غُمدَ السيوفِ» و«متى أكونُ فداك»<br>ما الموقع الإعرابي لـ(متى) في البيتين؟`,o:[
-`في محل رفع مبتدأ؛ تلاها فعل ناقص استوفى خبره.`,
-`في محل نصب مفعول فيه ظرف زمان؛ تلاها فعل ناقص استوفى خبره.`,
-`في محل نصب خبر مقدم للفعل الناقص؛ تلاها فعل ناقص لم يستوفِ خبره.`,
-`في محل نصب حال؛ تلاها فعل ناقص استوفى خبره.`],a:1},
-{q:`في جملة: «أرى اليــــــومَ موعــــدنا لا الغدا»<br>إذا أردت الاستفهام عن العبارة المخطوطة (اليوم موعدنا) باسم استفهام مناسب، فما الصياغة الصحيحة؟`,o:[
-`أيان موعدنا؟`,`أين موعدنا؟`,`متى موعدنا؟`,`هل موعدنا اليوم؟`],a:2},
-{q:`في قول الشاعر: «قلتُ ومَنْ لها»<br>ما إعراب اسم الاستفهام (مَنْ) معللاً؟`,o:[
-`مفعول به مقدم؛ تلاه شبه جملة.`,
-`مجرور بحرف الجر؛ سُبق بحرف العطف الواو.`,
-`خبر مقدم؛ تلاه شبه جملة.`,
-`مبتدأ؛ تلاه شبه جملة جار ومجرور.`],a:3},
-{q:`في قول الشاعر: «قالوا يسُرُّكَ أن تزوركَ في الكرى»<br>ما خصيصة الهمزة في هذا البيت؟`,o:[
-`دخلت على الاستفهام التصوري، والتقدير: (أيسرك أم لا).`,
-`حُذفت للتخفيف، والتقدير: (أيسُرُّكَ).`,
-`دخلت على الجملة المنفية، والتقدير: (ألم يسرك).`,
-`لها الصدارة في الكلام، والتقدير: (فأيسرك).`],a:1},
-{q:`في قول الشاعر: «ألستم خَيرَ مَنْ ركبَ المطايا»<br>كيف تجعل استبدال (هل) بالهمزة ممكناً مع الحفاظ على المعنى قدر الإمكان؟`,o:[
-`هل لستم خيرَ مَنْ ركبَ المطايا؟`,`أوهل أنتم خيرُ مَنْ ركبَ المطايا؟`,`هل أنتم خيرُ مَنْ ركبَ المطايا؟`,`هل ليسوا خيرَ مَنْ ركبَ المطايا؟`],a:2},
-{q:`في قول الشاعر: «إليــــــكَ من الـــذي نتطــلبُ» و«ومَنْ ذا الذي تـُـــــرضى سجاياه»<br>ما الوجه الإعرابي لأسماء الاستفهام (مَنْ - مَنْ ذا) في البيتين؟`,o:[
-`مبتدأ فقط؛ لأنها تلاها اسم موصول.`,
-`مفعول به مقدم؛ لأنها تلاها فعل متعدٍ (نتطلب / تُرضى).`,
-`مبتدأ أو خبر مقدم؛ لأنها تلاها اسم معرفة.`,
-`خبر مقدم وجوباً؛ لأنها تلاها اسم نكرة.`],a:2},
-{q:`في قول الشاعر: «أولا فـارشــــدنا إلى مَنْ نَــــــذهـبُ»<br>ما إعراب اسم الاستفهام (مَنْ)؟`,o:[
-`في محل جر بالإضافة.`,`في محل نصب مفعول به للفعل (نذهب).`,`في محل جر بحرف الجر.`,`في محل رفع مبتدأ؛ تلاه فعل لازم.`],a:2},
-{q:`في قول الشاعر: «كيــــف صـــــارت نـسـاؤُهم والعـذارى»<br>ما الإعراب الصحيح لـ(كيف) معللاً؟`,o:[
-`في محل نصب خبر مقدم للفعل الناقص؛ لأنه لم يستوفِ خبره.`,
-`في محل رفع خبر مقدم؛ تلاه اسم معرفة.`,
-`مفعول به للفعل الناقص؛ لأنه لم يستوفِ مفعوله.`,
-`في محل نصب حال؛ تلاه فعل ناقص استوفى خبره.`],a:0},
-{q:`في قول الشاعر: «فقالوا: من ربيعة أم مُضَر»<br>ما نوع الاستفهام في هذا البيت؟ ولماذا؟`,o:[
-`تصديقي؛ لأن الجملة مثبتة، و(أم) هنا منقطعة وليست معادلة.`,
-`تصوري؛ لوجود (أم) المعادلة، ويُجاب عنه بالتعيين.`,
-`تصديقي؛ لأن الهمزة محذوفة، ويُجاب عنه بحرف الجواب.`,
-`تصوري؛ لأن الأداة المحذوفة هي (هل) و(هل) تفيد التصور مع (أم).`],a:1}
+{
+  q: 'في قول الشاعر: «مَنْ أشتكي؟ وإلى مَنْ أعتزي؟ وندى مَنْ أجتدي؟»<br>ما الإعراب الصحيح لاسم الاستفهام (مَنْ) الأول (مَنْ أشتكي)؟',
+  options: ['اسم استفهام مبني في محل رفع مبتدأ؛ تلاه فعل متعدٍ.', 'اسم استفهام مبني في محل رفع خبر مقدم؛ تلاه فعل متعدٍ.', 'اسم استفهام مبني في محل نصب مفعول به مقدم وجوباً؛ تلاه فعل متعدٍ لم يستوفِ مفعوله.', 'اسم استفهام مبني في محل نصب حال؛ تلاه جملة فعلية تامة.'],
+  answer: 2,
+  correctText: 'اسم استفهام مبني في محل نصب مفعول به مقدم وجوباً؛ تلاه فعل متعدٍ لم يستوفِ مفعوله.',
+  rule: 'إعراب أسماء الاستفهام الدالة على العاقل إذا تلاها فعل متعدٍ لم يستوفِ مفعوله.',
+  why: '(مَنْ) تدل على العاقل، وجاء بعدها الفعل (أشتكي) وهو متعدٍ، لكنه لم يأخذ مفعولاً به في الجملة، فتكون (مَنْ) هي المفعول به المقدم لسد النقص.',
+  distractors: ['يعرب الطالب (مَنْ) مبتدأ بمجرد رؤية فعل بعدها دون التحقق مما إذا كان قد استوفى مفعوله أم لا.', 'أسماء الاستفهام الدالة على العاقل لا تعرب خبراً مقدماً هنا؛ فقد تلاها فعل متعدٍ، لا اسم معرفة.', '(مَنْ) للعاقل ولا تعرب حالاً في هذا السياق؛ هذا الباب يخص أسماء الاستفهام الدالة على الحال مثل (كيف) في مواضعها.']
+},
+{
+  q: 'في قول الشاعر: «مَنْ أشتكي؟ وإلى مَنْ أعتزي؟ وندى مَنْ أجتدي؟»<br>ما الموقع الإعرابي لاسم الاستفهام (مَنْ) الثاني (إلى مَنْ أعتزي)؟',
+  options: ['في محل جر بالإضافة؛ لأنها وقعت بعد حرف جر.', 'في محل نصب مفعول به للفعل (أعتزي)؛ لأنه متعدٍ.', 'في محل رفع مبتدأ؛ لأن الفعل بعدها استوفى معناه.', 'في محل جر بحرف الجر؛ لأنها سُبقت بحرف الجر (إلى).'],
+  answer: 3,
+  correctText: 'في محل جر بحرف الجر؛ لأنها سُبقت بحرف الجر (إلى).',
+  rule: 'إعراب أسماء الاستفهام إذا سُبقت بحرف جر.',
+  why: 'أسماء الاستفهام كلها مبنية (عدا أي)، وإذا سبقها حرف جر تُعرب في محل جر بحرف الجر، وهنا سُبقت بـ(إلى).',
+  distractors: ['المجرور بحرف الجر يختلف عن المجرور بالإضافة؛ العامل هنا هو (إلى).', 'وجود حرف الجر يمنع توجيه الإعراب إلى الفعل التالي باعتباره العامل في الاسم.', 'لا يمكن أن تكون مبتدأ وهي مسبوقة بحرف جر عامل فيها.']
+},
+{
+  q: 'في قول الشاعر: «مَنْ أشتكي؟ وإلى مَنْ أعتزي؟ وندى مَنْ أجتدي؟»<br>ما الموقع الإعرابي لاسم الاستفهام (مَنْ) الثالث (وندى مَنْ أجتدي)؟',
+  options: ['في محل نصب مفعول به مقدم للفعل (أجتدي).', 'في محل جر بالإضافة؛ لأنها سُبقت باسم نكرة مضاف.', 'في محل جر بحرف الجر؛ لأن (ندى) تعمل عمل حروف الجر.', 'في محل رفع مبتدأ؛ لأنها سُبقت باسم معرفة.'],
+  answer: 1,
+  correctText: 'في محل جر بالإضافة؛ لأنها سُبقت باسم نكرة مضاف.',
+  rule: 'إعراب أسماء الاستفهام إذا سُبقت باسم نكرة مضاف.',
+  why: 'إذا سُبق اسم الاستفهام باسم نكرة مضاف يكتسب منه التعريف، يعرب اسم الاستفهام في محل جر مضاف إليه. و(ندى) هنا اسم نكرة مضاف.',
+  distractors: ['يتجاهل الطالب الكلمة التي تسبق اسم الاستفهام ويركز فقط على الفعل الذي بعده.', '(ندى) اسم، وليست حرف جر، فلا يصح جعل اسم الاستفهام مجروراً بحرف جر غير موجود.', '(ندى) ليس اسماً معرفة؛ بل نكرة أضيفت إلى اسم الاستفهام، فكان الاسم بعدها مضافاً إليه.']
+},
+{
+  q: 'في قول الشاعر: «وكَيْفَ لِقَاءُ مَنْ تَحْتَ القُبُورِ»<br>ما إعراب اسم الاستفهام (كيف) معللاً؟',
+  options: ['في محل رفع مبتدأ؛ تلاها اسم معرفة.', 'في محل نصب حال؛ تلاها اسم نكرة.', 'في محل رفع خبر مقدم وجوباً؛ تلاها اسم معرفة.', 'في محل نصب مفعول مطلق؛ لأنها تدل على هيئة الحدث.'],
+  answer: 2,
+  correctText: 'في محل رفع خبر مقدم وجوباً؛ تلاها اسم معرفة.',
+  rule: 'إعراب أسماء الاستفهام الدالة على الحال إذا تلاها اسم معرفة.',
+  why: '(كيف) تدل على الحال، وتلاها اسم معرفة هو (لقاءُ مَنْ)، فتُعرب خبراً مقدماً وجوباً.',
+  distractors: ['في هذا التركيب لا تعرب (كيف) مبتدأ؛ فهي اسم استفهام دال على الحال.', 'ليس كل ورود لـ(كيف) يعني إعرابها حالاً؛ يجب النظر إلى تركيب الجملة وما بعدها.', '(كيف) لا تعرب مفعولاً مطلقاً في هذا التركيب.']
+},
+{
+  q: 'في قول الشاعر: «في حَدَقَاتِ العينِ أم في الفُؤادِ تسكُنُ»<br>ثمة حرف محذوف، ما هو؟ وما تقديره؟ ولماذا حُذف؟',
+  options: ['هل الاستفهامية، والتقدير: (هل في حدقات)، وحذفت للتخفيف.', 'همزة الاستفهام، والتقدير: (أم في الفؤاد أتسكن)، وحذفت لوجود النفي.', 'همزة النداء، والتقدير: (أفي حدقات)، وحذفت للتعظيم.', 'همزة الاستفهام، والتقدير: (أفي حدقات)، وحذفت للتخفيف.'],
+  answer: 3,
+  correctText: 'همزة الاستفهام، والتقدير: (أفي حدقات)، وحذفت للتخفيف.',
+  rule: 'خصائص الهمزة: جواز حذفها للتخفيف، مع وجود قرينة (أم) المعادلة.',
+  why: 'وجود (أم) المعادلة المتصلة يدل على أن الاستفهام تصوري بالهمزة، والتقدير قبل المعطوف المطابق لما بعد أم: (أفي حدقات العين أم في الفؤاد؟). وسبب الحذف التخفيف.',
+  distractors: ['(هل) لا تُحذف من الكلام على هذه الصورة، ولا تدخل في الاستفهام التصوري مع (أم) المعادلة.', 'التقدير المعتمد يكون في موضع المعطوف عليه: (أفي حدقات)، ولا يوجد نفي في الجملة.', 'السياق استفهامي لوجود (أم) المعادلة، وليس سياق نداء.']
+},
+{
+  q: 'في قول الشاعر: «مَنْ ذا يُغيّرُ على الأُسودِ بِغَابِها»<br>ما إعراب اسم الاستفهام (مَنْ ذا) معللاً؟',
+  options: ['مبتدأ؛ تلاه فعل متعدٍ استوفى مفعوله.', 'مبتدأ؛ تلاه فعل لازم.', 'مفعول به مقدم وجوباً؛ تلاه فعل متعدٍ لم يستوفِ مفعوله.', 'خبر مقدم؛ تلاه اسم معرفة.'],
+  answer: 1,
+  correctText: 'مبتدأ؛ تلاه فعل لازم.',
+  rule: 'إعراب (من ذا) إذا تلاها فعل لازم.',
+  why: '(من ذا) تعامل معاملة (من)، والفعل (يُغيّر) هنا مستعمل لازماً مع (على)، فلا يحتاج إلى مفعول به في هذا التركيب؛ لذلك تعرب (من ذا) في محل رفع مبتدأ.',
+  distractors: ['الفعل هنا ليس متعدياً إلى مفعول به مستوفى؛ لذا لا يصح بناء الإعراب على هذا الافتراض.', 'التعدية ليست لازمة في كل استعمال للفعل؛ السياق هنا مع (على).', 'لا يُجزّأ التركيب هنا إلى (من) استفهامية و(ذا) اسم إشارة على الوجه المطلوب في السؤال.']
+},
+{
+  q: 'في عجز البيت: «أو مَنْ ذا يَعومُ بِمَسْبَحِ التِّمساحِ»<br>ما إعراب (مَنْ ذا) معللاً؟',
+  options: ['حال؛ لأن الجملة الفعلية تدل على هيئة الفاعل.', 'مفعول به؛ لأن الفعل يحتاج إلى مفعول به ليكتمل معناه.', 'مبتدأ؛ تلاه فعل لازم.', 'مبتدأ؛ تلاه فعل ناقص استوفى خبره.'],
+  answer: 2,
+  correctText: 'مبتدأ؛ تلاه فعل لازم.',
+  rule: 'إعراب (من ذا) إذا تلاها فعل لازم (يعوم).',
+  why: 'الفعل (يعوم) فعل لازم يكتفي بفاعله المستتر ولا ينصب مفعولاً به، وبما أن (من ذا) تلاها فعل لازم، فهي في محل رفع مبتدأ.',
+  distractors: ['(من) و(من ذا) لا تعربان حالاً في هذا التركيب.', '(يعوم) ليس فعلاً متعدياً يحتاج إلى مفعول به.', '(يعوم) فعل تام، وليس من الأفعال الناقصة مثل (كان وأخواتها).']
+},
+{
+  q: 'في قول الشاعر: «أبا الهولِ ماذا وراءَ البقاءِ»<br>ما الإعراب الصحيح لاسم الاستفهام (ماذا)؟',
+  options: ['مفعول فيه ظرف مكان؛ لأن (وراء) تدل على المكان.', 'مفعول به مقدم؛ تلاه شبه جملة ظرفية.', 'خبر مقدم؛ تلاه اسم معرفة مضاف.', 'مبتدأ؛ تلاه شبه جملة ظرفية.'],
+  answer: 3,
+  correctText: 'مبتدأ؛ تلاه شبه جملة ظرفية.',
+  rule: 'إعراب أسماء الاستفهام الدالة على غير العاقل إذا تلاها شبه جملة.',
+  why: '(ماذا) لغير العاقل، وتلاها (وراء البقاء) وهو شبه جملة ظرفية، فتُعرب مبتدأ في هذا التركيب.',
+  distractors: ['دلالة (وراء) المكانية لا تجعل (ماذا) نفسها ظرف مكان.', 'شبه الجملة لا ينصب مفعولاً به، و(ماذا) لا تكون مفعولاً به إلا بحسب العامل الذي يليها في تركيب مناسب.', '(وراء البقاء) شبه جملة ظرفية، وليس اسماً مفرداً معرفة يجعل (ماذا) خبراً مقدماً.']
+},
+{
+  q: 'في قول الشاعر: «فَيا ليتَ شِعري أيَّ وقْتٍ تُحاوِلُ»<br>ما إعراب اسم الاستفهام (أيّ) معللاً؟',
+  options: ['مبتدأ؛ تلاه فعل تام.', 'مفعول به مقدم؛ تلاه فعل متعدٍ لم يستوفِ مفعوله.', 'مفعول فيه ظرف زمان منصوب؛ تلاه فعل تام.', 'مفعول مطلق منصوب؛ لأنها دالة على الحدث.'],
+  answer: 2,
+  correctText: 'مفعول فيه ظرف زمان منصوب؛ تلاه فعل تام.',
+  rule: 'دلالة وإعراب (أي) بحسب المضاف إليه.',
+  why: '(أي) تأخذ دلالتها من المضاف إليه، وهنا (وقت) يدل على الزمان، فتعامل (أي) معاملة (متى). ولأنها تلاها فعل تام (تحاول)، تُعرب مفعولاً فيه ظرف زمان.',
+  distractors: ['المعيار ليس مجرد وجود فعل تام، بل دلالة (أي) التي يحددها المضاف إليه.', 'لا تُعامل (أي وقت) هنا معاملة اسم استفهام لغير العاقل من حيث المفعول به.', '(أي) هنا دالة على الزمان، وليست مفعولاً مطلقاً.']
+},
+{
+  q: 'في قول الشاعر: «متى صِرتَ يابحرُ غُمدَ السيوفِ» و«متى أكونُ فداك»<br>ما الموقع الإعرابي لـ(متى) في البيتين؟',
+  options: ['في محل رفع مبتدأ؛ تلاها فعل ناقص استوفى خبره.', 'في محل نصب مفعول فيه ظرف زمان؛ تلاها فعل ناقص استوفى خبره.', 'في محل نصب خبر مقدم للفعل الناقص؛ تلاها فعل ناقص لم يستوفِ خبره.', 'في محل نصب حال؛ تلاها فعل ناقص استوفى خبره.'],
+  answer: 1,
+  correctText: 'في محل نصب مفعول فيه ظرف زمان؛ تلاها فعل ناقص استوفى خبره.',
+  rule: 'إعراب أسماء الزمان إذا تلاها فعل ناقص استوفى خبره.',
+  why: '(متى) اسم زمان. في الأولى: (صرت) فعل ناقص اسمه التاء وخبره (غمد). وفي الثانية: (أكون) اسمه مستتر وخبره (فداك). ولما استوفى الفعل الناقص خبره، تعرب (متى) ظرف زمان.',
+  distractors: ['أسماء الزمان في هذا التركيب لا تُجعل مبتدأ لمجرد تقدمها.', 'الخبر موجود: (غمد) و(فداك)، لذلك لا تحتاج (متى) إلى سد نقص خبر الفعل الناقص.', 'الخلط بين الزمان والحال يؤدي إلى هذا الاختيار؛ (متى) للسؤال عن الزمان.']
+},
+{
+  q: 'في جملة: «أرى اليــــــومَ موعــــدنا لا الغدا»<br>إذا أردت الاستفهام عن العبارة المخطوطة (اليوم موعدنا) باسم استفهام مناسب، فما الصياغة الصحيحة؟',
+  options: ['أيان موعدنا؟', 'أين موعدنا؟', 'متى موعدنا؟', 'هل موعدنا اليوم؟'],
+  answer: 2,
+  correctText: 'متى موعدنا؟',
+  rule: 'اختيار اسم الاستفهام المناسب للدلالة المطلوبة (الزمان المطلق).',
+  why: 'المستفهم عنه هو (اليوم) وهو ظرف زمان، واسم الاستفهام المناسب للسؤال عن الزمان مطلقاً هو (متى).',
+  distractors: ['(أيان) تُستخدم للزمان المستقبل وتفيد التهويل والتفخيم، فلا تناسب المقصود هنا.', '(أين) للسؤال عن المكان، بينما المستفهم عنه زمان.', 'المطلوب اسم استفهام، و(هل) حرف استفهام للتصديق ولا يسأل عن الظرف بهذه الصورة.']
+},
+{
+  q: 'في قول الشاعر: «قلتُ ومَنْ لها»<br>ما إعراب اسم الاستفهام (مَنْ) معللاً؟',
+  options: ['مفعول به مقدم؛ تلاه شبه جملة.', 'مجرور بحرف الجر؛ سُبق بحرف العطف الواو.', 'خبر مقدم؛ تلاه شبه جملة.', 'مبتدأ؛ تلاه شبه جملة جار ومجرور.'],
+  answer: 3,
+  correctText: 'مبتدأ؛ تلاه شبه جملة جار ومجرور.',
+  rule: 'إعراب أسماء الاستفهام للعاقل إذا تلاها شبه جملة.',
+  why: '(مَنْ) دالة على العاقل، وجاء بعدها (لها) وهي شبه جملة جار ومجرور، فتُعرب في محل رفع مبتدأ في هذا التركيب.',
+  distractors: ['لا يوجد فعل متعدٍ ينصب (مَنْ) مفعولاً به في التركيب.', 'الواو حرف عطف وليست حرف جر.', 'في هذا التركيب شبه الجملة بعد (من) يجعلها مبتدأ، بخلاف بعض أسماء الاستفهام الأخرى التي لها أحكام بحسب دلالتها وتركيبها.']
+},
+{
+  q: 'في قول الشاعر: «قالوا يسُرُّكَ أن تزوركَ في الكرى»<br>ما خصيصة الهمزة في هذا البيت؟',
+  options: ['دخلت على الاستفهام التصوري، والتقدير: (أيسرك أم لا).', 'حُذفت للتخفيف، والتقدير: (أيسُرُّكَ).', 'دخلت على الجملة المنفية، والتقدير: (ألم يسرك).', 'لها الصدارة في الكلام، والتقدير: (فأيسرك).'],
+  answer: 1,
+  correctText: 'حُذفت للتخفيف، والتقدير: (أيسُرُّكَ).',
+  rule: 'خصائص الهمزة: جواز الحذف المفهوم من السياق.',
+  why: 'لا توجد أداة استفهام ظاهرة، لكن السياق يقتضي الاستفهام؛ والهمزة هي الأداة التي يجوز حذفها للتخفيف، والتقدير (أيسرك).',
+  distractors: ['لا توجد (أم) المعادلة التي تدل هنا على الاستفهام التصوري.', 'الجملة ليست منفية؛ لذلك لا يصح تقدير (ألم يسرك).', 'الاختيار يخلط بين خصيصة الحذف وخصيصة الصدارة؛ المقصود هنا الحذف للتخفيف.']
+},
+{
+  q: 'في قول الشاعر: «ألستم خَيرَ مَنْ ركبَ المطايا»<br>كيف تجعل استبدال (هل) بالهمزة ممكناً مع الحفاظ على المعنى قدر الإمكان؟',
+  options: ['هل لستم خيرَ مَنْ ركبَ المطايا؟', 'أوهل أنتم خيرُ مَنْ ركبَ المطايا؟', 'هل أنتم خيرُ مَنْ ركبَ المطايا؟', 'هل ليسوا خيرَ مَنْ ركبَ المطايا؟'],
+  answer: 2,
+  correctText: 'هل أنتم خيرُ مَنْ ركبَ المطايا؟',
+  rule: 'خصائص (هل) وعدم دخولها على الجمل المنفية، ومعالجة الاستبدال.',
+  why: 'الهمزة دخلت على نفي (لستم)، و(هل) لا تدخل على النفي. لذلك تزال أداة النفي (ليس)، ويُحوّل الضمير المتصل إلى منفصل مناسب (أنتم)، وترفع (خيرُ) لتكون خبراً للمبتدأ.',
+  distractors: ['(هل) لا يصح أن تدخل على أداة النفي (ليس) في هذا الاستبدال.', 'إضافة حرف العطف لا تعالج المشكلة الأساسية، وهي وجود النفي.', 'تغيير المخاطب إلى الغائب والإبقاء على النفي لا يحافظ على المعنى ولا يحقق القاعدة.']
+},
+{
+  q: 'في قول الشاعر: «إليــــــكَ من الـــذي نتطــلبُ» و«ومَنْ ذا الذي تـُـــــرضى سجاياه»<br>ما الوجه الإعرابي لأسماء الاستفهام (مَنْ - مَنْ ذا) في البيتين؟',
+  options: ['مبتدأ فقط؛ لأنها تلاها اسم موصول.', 'مفعول به مقدم؛ لأنها تلاها فعل متعدٍ (نتطلب / تُرضى).', 'مبتدأ أو خبر مقدم؛ لأنها تلاها اسم معرفة.', 'خبر مقدم وجوباً؛ لأنها تلاها اسم نكرة.'],
+  answer: 2,
+  correctText: 'مبتدأ أو خبر مقدم؛ لأنها تلاها اسم معرفة.',
+  rule: 'إعراب أسماء الاستفهام للعاقل إذا تلاها اسم معرفة.',
+  why: '(من) و(من ذا) تلاهما الاسم الموصول (الذي)، وهو من المعارف؛ لذلك يجوز في الوجه المعتمد أن تعرب اسم الاستفهام مبتدأ أو خبراً مقدماً.',
+  distractors: ['القاعدة لا تقتصر على المبتدأ فقط؛ بل تجيز الوجهين بحسب التركيب.', 'لا ينبغي تجاوز الاسم الموصول والنظر إلى الفعل داخل صلته بوصفه العامل المباشر في اسم الاستفهام.', '(الذي) اسم معرفة، وليس نكرة؛ لذلك لا يصح تعليل الخيار بهذا الوصف.']
+},
+{
+  q: 'في قول الشاعر: «أولا فـارشــــدنا إلى مَنْ نَــــــذهـبُ»<br>ما إعراب اسم الاستفهام (مَنْ)؟',
+  options: ['في محل جر بالإضافة.', 'في محل نصب مفعول به للفعل (نذهب).', 'في محل جر بحرف الجر.', 'في محل رفع مبتدأ؛ تلاه فعل لازم.'],
+  answer: 2,
+  correctText: 'في محل جر بحرف الجر.',
+  rule: 'أثر حروف الجر على أسماء الاستفهام.',
+  why: 'سُبقت أداة الاستفهام (مَنْ) بحرف الجر (إلى)، فتُعرب في محل جر بحرف الجر.',
+  distractors: ['(إلى) حرف جر، وليس اسماً حتى يكون ما بعده مضافاً إليه.', 'وجود حرف الجر السابق هو العامل؛ فلا يصح تجاهله وإعراب (من) مفعولاً بالفعل اللاحق.', 'وجود (إلى) يمنع توجيه الإعراب إلى قاعدة المبتدأ مع الفعل اللازم.']
+},
+{
+  q: 'في قول الشاعر: «كيــــف صـــــارت نـسـاؤُهم والعـذارى»<br>ما الإعراب الصحيح لـ(كيف) معللاً؟',
+  options: ['في محل نصب خبر مقدم للفعل الناقص؛ لأنه لم يستوفِ خبره.', 'في محل رفع خبر مقدم؛ تلاه اسم معرفة.', 'مفعول به للفعل الناقص؛ لأنه لم يستوفِ مفعوله.', 'في محل نصب حال؛ تلاه فعل ناقص استوفى خبره.'],
+  answer: 0,
+  correctText: 'في محل نصب خبر مقدم للفعل الناقص؛ لأنه لم يستوفِ خبره.',
+  rule: 'إعراب (كيف) إذا تلاها فعل ناقص لم يستوفِ خبره.',
+  why: '(صارت) فعل ناقص، واسمه (نساؤهم)، والجملة لا تحتوي على خبر. لذلك تسد (كيف) هذا النقص، فتُعرب خبراً مقدماً للفعل الناقص في محل نصب.',
+  distractors: ['وجود الفعل الناقص لا يجعل (كيف) خبراً مرفوعاً؛ خبر (صار) منصوب.', 'الأفعال الناقصة لا تنصب مفعولاً به؛ بل ترفع الاسم وتنصب الخبر.', 'الفعل الناقص هنا لم يستوف خبره؛ لذلك لا يصح جعل (كيف) حالاً لمجرد دلالتها على الهيئة.']
+},
+{
+  q: 'في قول الشاعر: «فقالوا: من ربيعة أم مُضَر»<br>ما نوع الاستفهام في هذا البيت؟ ولماذا؟',
+  options: ['تصديقي؛ لأن الجملة مثبتة، و(أم) هنا منقطعة وليست معادلة.', 'تصوري؛ لوجود (أم) المعادلة، ويُجاب عنه بالتعيين.', 'تصديقي؛ لأن الهمزة محذوفة، ويُجاب عنه بحرف الجواب.', 'تصوري؛ لأن الأداة المحذوفة هي (هل) و(هل) تفيد التصور مع (أم).'],
+  answer: 1,
+  correctText: 'تصوري؛ لوجود (أم) المعادلة، ويُجاب عنه بالتعيين.',
+  rule: 'نوع الاستفهام عند وجود الهمزة المحذوفة مع (أم) المعادلة المتصلة.',
+  why: 'التقدير: (أمِن ربيعة أم مضر؟). الاستفهام بالهمزة المقترنة بـ(أم) المعادلة يُسمى استفهاماً تصورياً، لأن الإجابة عنه تكون بالتعيين، أي اختيار أحد الأمرين.',
+  distractors: ['(أم) هنا معادلة متصلة، والاستفهام يطلب التعيين، لا مجرد التصديق أو التكذيب.', 'حذف الهمزة لا يغير نوع الاستفهام ما دامت القرينة (أم المعادلة) قائمة.', '(هل) لا تُحذف بهذه الصورة، ولا تستخدم مع (أم) المعادلة للدلالة على الاستفهام التصوري.']
+}
 ];
+const letters = ["أ","ب","ج","د"];
+const ordinals = ["الأول","الثاني","الثالث","الرابع","الخامس","السادس","السابع","الثامن","التاسع","العاشر","الحادي عشر","الثاني عشر","الثالث عشر","الرابع عشر","الخامس عشر","السادس عشر","السابع عشر","الثامن عشر"];
+let current = 0;
+const answers = new Array(questions.length).fill(null);
 
-let current=0;
-const answers=Array(questions.length).fill(null);
-const qEl=document.getElementById('question'), oEl=document.getElementById('options');
-const counter=document.getElementById('counter'), percent=document.getElementById('percent'), progress=document.getElementById('progress');
-const prev=document.getElementById('prev'), next=document.getElementById('next');
-const quizCard=document.getElementById('quizCard'), resultCard=document.getElementById('resultCard');
-
-function render(){
-  const q=questions[current];
-  qEl.innerHTML=q.q;
-  oEl.innerHTML='';
-  q.o.forEach((text,i)=>{
-    const b=document.createElement('button'); b.type='button'; b.className='option'+(answers[current]===i?' selected':'');
-    b.innerHTML='<span class="letter">'+String.fromCharCode(65+i)+'</span><span>'+text+'</span>';
-    b.onclick=()=>{answers[current]=i;render();};
-    oEl.appendChild(b);
+const el = id => document.getElementById(id);
+function render() {
+  const q = questions[current];
+  el("question").innerHTML = q.q;
+  el("questionNo").textContent = "السؤال " + ordinals[current];
+  el("counter").textContent = `السؤال ${current+1} من ${questions.length}`;
+  const progress = Math.round((current / questions.length) * 100);
+  el("pct").textContent = progress + "%";
+  el("bar").style.width = progress + "%";
+  el("options").innerHTML = "";
+  q.options.forEach((text, i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "option" + (answers[current] === i ? " selected" : "");
+    b.innerHTML = `<span class="letter">${letters[i]}</span><span>${text}</span>`;
+    b.addEventListener("click", () => {
+      answers[current] = i;
+      render();
+    });
+    el("options").appendChild(b);
   });
-  const done=current+1, pct=Math.round((current/questions.length)*100);
-  counter.textContent=`السؤال ${done} من ${questions.length}`;
-  percent.textContent=`${pct}%`;
-  progress.style.width=`${(current/questions.length)*100}%`;
-  prev.disabled=current===0;
-  next.disabled=answers[current]===null;
-  next.textContent=current===questions.length-1?'إنهاء الاختبار':'التالي';
+  el("prev").disabled = current === 0;
+  el("next").disabled = answers[current] === null;
+  el("next").textContent = current === questions.length - 1 ? "إنهاء الاختبار" : "التالي";
 }
-next.onclick=()=>{if(answers[current]===null)return;if(current<questions.length-1){current++;render()}else finish()};
-prev.onclick=()=>{if(current>0){current--;render()}};
-document.getElementById('restart').onclick=()=>{current=0;answers.fill(null);resultCard.classList.add('hidden');quizCard.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});render()};
-
-function finish(){
-  let correct=0; answers.forEach((x,i)=>{if(x===questions[i].a)correct++});
-  const total=questions.length, wrong=total-correct, pct=Math.round(correct/total*100);
-  document.getElementById('score').textContent=pct+'%';
-  document.getElementById('correct').textContent=correct;
-  document.getElementById('wrong').textContent=wrong;
-  document.getElementById('total').textContent=total;
-  let title,msg;
-  if(pct>=90){title='ممتاز جدًا! 🏆';msg='إتقان رائع. واضح أنك تملك فهمًا قويًا لقواعد الاستفهام. واصل بهذا المستوى!'}
-  else if(pct>=75){title='أحسنت! 🌟';msg='نتيجة قوية. راجع الأخطاء القليلة، وستقترب من الإتقان الكامل.'}
-  else if(pct>=50){title='جيد، واصل التقدم 💪';msg='لديك أساس جيد. مراجعة القواعد التي أخطأت فيها ستصنع فرقًا كبيرًا.'}
-  else {title='لا تستسلم! 📚';msg='الخطأ جزء من التعلم. أعد الاختبار بعد مراجعة القواعد وستلاحظ تحسنًا واضحًا.'}
-  document.getElementById('resultTitle').textContent=title;
-  document.getElementById('message').textContent=msg;
-  const review=document.getElementById('review'); review.innerHTML='<h3>مراجعة الإجابات</h3>';
-  questions.forEach((q,i)=>{
-    const d=document.createElement('details');
-    const ok=answers[i]===q.a;
-    const user=answers[i]===null?'لم تُجب':String.fromCharCode(65+answers[i]);
-    d.innerHTML=`<summary class="${ok?'right':'wrong'}">${i+1}. ${ok?'إجابة صحيحة':'إجابة غير صحيحة'}</summary><p>إجابتك: <b>${user}</b></p><p>الإجابة الصحيحة: <b>${String.fromCharCode(65+q.a)}</b></p>`;
-    review.appendChild(d);
+function finish() {
+  let correct = 0;
+  questions.forEach((q, i) => { if (answers[i] === q.answer) correct++; });
+  const total = questions.length;
+  const wrong = total - correct;
+  const score = Math.round(correct / total * 100);
+  el("score").textContent = score + "%";
+  el("correct").textContent = correct;
+  el("wrong").textContent = wrong;
+  let title, message, icon;
+  if (score >= 90) {
+    title = "ممتاز جدًا!"; icon = "🏆";
+    message = "نتيجة رائعة! لديك إتقان قوي لقواعد الاستفهام. استمر بهذا المستوى وواصل مراجعة التفاصيل الدقيقة.";
+  } else if (score >= 75) {
+    title = "أحسنت!"; icon = "🌟";
+    message = "أداء قوي جدًا. راجع الأسئلة التي أخطأت فيها، وستقترب من الإتقان الكامل.";
+  } else if (score >= 50) {
+    title = "بداية جيدة، واصل التقدم!"; icon = "💪";
+    message = "لديك أساس جيد. ركّز على القواعد المبيّنة في المراجعة، ثم أعد الاختبار لترى تطورك.";
+  } else {
+    title = "لا تستسلم!"; icon = "📚";
+    message = "الخطأ جزء طبيعي من التعلم. راجع التفسيرات بهدوء ثم أعد الاختبار، وستلاحظ تحسنًا بإذن الله.";
+  }
+  el("resultTitle").textContent = title;
+  el("resultIcon").textContent = icon;
+  el("message").textContent = message;
+  const review = el("review");
+  review.innerHTML = "<h3>مراجعة الإجابات والتعليل</h3>";
+  questions.forEach((q, i) => {
+    const ok = answers[i] === q.answer;
+    const details = document.createElement("details");
+    const userText = answers[i] === null ? "لم تُجب" : letters[answers[i]] + " — " + q.options[answers[i]];
+    const wrongBlock = ok ? "" : `<p class="wrong-answer"><b>إجابتك:</b> ${userText}</p>`;
+    details.innerHTML = `
+      <summary class="${ok ? "answer" : "wrong-answer"}">${i+1}. ${ok ? "✓ إجابة صحيحة" : "✗ إجابة غير صحيحة"}</summary>
+      <div class="review-content">
+        ${wrongBlock}
+        <p class="answer"><b>الإجابة الصحيحة:</b> ${letters[q.answer]} — ${q.correctText}</p>
+        <div class="rule"><b>القاعدة المختبرة:</b><br>${q.rule}</div>
+        <p><b>لماذا؟</b><br>${q.why}</p>
+        <p><b>لماذا المشتتات خاطئة؟</b></p>
+        <ul>${q.distractors.map(x => "<li>"+x+"</li>").join("")}</ul>
+      </div>`;
+    review.appendChild(details);
   });
-  quizCard.classList.add('hidden');resultCard.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});
+  el("quiz").classList.add("hidden");
+  el("result").classList.remove("hidden");
+  window.scrollTo({top:0, behavior:"smooth"});
 }
+el("next").addEventListener("click", () => {
+  if (answers[current] === null) return;
+  if (current < questions.length - 1) { current++; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else finish();
+});
+el("prev").addEventListener("click", () => {
+  if (current > 0) { current--; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+});
+el("restart").addEventListener("click", () => {
+  current = 0; answers.fill(null);
+  el("result").classList.add("hidden"); el("quiz").classList.remove("hidden");
+  render(); window.scrollTo({top:0,behavior:"smooth"});
+});
 render();
 </script>
 </body>
